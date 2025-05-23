@@ -10,7 +10,6 @@
         font-family: Arial, sans-serif;
       }
 
-      /* === Cookie Banner === */
       .cookie-banner {
         position: fixed;
         bottom: 0;
@@ -64,7 +63,6 @@
         padding: 15px 15px;
       }
 
-      /* === Modal Overlay === */
       .modal-overlay {
         display: none;
         position: fixed;
@@ -75,10 +73,9 @@
         backdrop-filter: blur(5px);
         background-color: rgba(0, 0, 0, 0.3);
         z-index: 1000;
-        margin-top: 0px;
-         justify-content:start;
+        justify-content: start;
         align-items: center;
-           }
+      }
 
       .modal {
         background: #fff;
@@ -196,9 +193,7 @@
       </div>
 
       <div class="cookie-buttons">
-        <span class="cookie-settings" onclick="openModal()"
-          >Cookies Settings</span
-        >
+        <span class="cookie-settings" onclick="openModal()">Cookies Settings</span>
         <button>Reject All</button>
         <button>Accept All Cookies</button>
       </div>
@@ -208,77 +203,101 @@
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal">
         <h2>Privacy Preference Center</h2>
-  
         <p>
           You can customize your cookie preferences here. Click on the different
           category headings to find out more and change our default settings.
-          Please read our through the use of cookies. The stored or retrieved
-          information might be about you, your preferences or your device and is
-          used for the purposes specified per cookies category below. The data
-          controller of your data processed through our cookies is Accenture
-          PLC. In addition, some cookies we use are from (and controlled by)
-          third-party companies, such as, Facebook, Microsoft, Marketo Munchkin
-          Tracking, Twitter, Knotch, Youtube, Instagram, Yoptima and Linkedin
-          Analytics to provide us with web analytics and intelligence about our
-          sites. You can accept the cookies as per your preferences by
-          activating the sliders per cookies category. By accepting cookies, the
-          functionalities described per cookies category will be activated and
-          by not accepting cookies, such<a href="#">Cookies Policy</a> for more
-          information.
+          You can customize your cookie preferences here. Click on the different
+          category headings to find out more and change our default settings.
+          You can customize your cookie preferences here. Click on the different
+          category headings to find out more and change our default settings.
         </p>
 
         <button class="btn" style="margin-bottom: 15px">Allow All</button>
 
         <div class="consent-section">
-            <h2>Manage Consent Preferences</h2>
-          <div class="consent-category">
-            <span>Strictly Necessary Cookies</span>
-            <span class="always-active">Always Active</span>
-          </div>
-          <div class="consent-category">
-            <span>First Party Analytics Cookies</span>
-            <div class="toggle" onclick="toggleSwitch(this)"></div>
-          </div>
-          <div class="consent-category">
-            <span>Performance & Functional Cookies</span>
-            <div class="toggle" onclick="toggleSwitch(this)"></div>
-          </div>
-          <div class="consent-category">
-            <span>Advertising & Social Media Cookies</span>
-            <div class="toggle" onclick="toggleSwitch(this)"></div>
-          </div>
+          <h2>Manage Consent Preferences</h2>
+          <div id="consentContainer"></div>
         </div>
 
         <div style="margin-top: 20px; text-align: right">
           <button class="btn">Reject All</button>
           <button class="btn">Confirm My Choices</button>
-                         
-  <button class="btn" onclick="closeModal()">Close</button>
-
- 
-
+          <button class="btn" onclick="closeModal()">Close</button>
         </div>
       </div>
     </div>
 
     <script>
-      function closeModal() {
-  document.getElementById("modalOverlay").style.display = "none";
-}
-
       function openModal() {
         document.getElementById("modalOverlay").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("modalOverlay").style.display = "none";
       }
 
       function toggleSwitch(element) {
         element.classList.toggle("active");
       }
+
       window.addEventListener("click", function (event) {
-  const modal = document.getElementById("modalOverlay");
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-});
+        const modal = document.getElementById("modalOverlay");
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+
+      // ✅ Dynamic cookie categories array
+      const cookieCategories = [
+        {
+          title: "Strictly Necessary Cookies",
+          description: "These cookies are essential for the website to function properly.",
+          alwaysActive: true,
+        },
+        {
+          title: "First Party Analytics Cookies",
+          description: "Used to understand how visitors interact with the website.",
+          alwaysActive: false,
+        },
+        {
+          title: "Performance & Functional Cookies",
+          description: "Helps in providing a better user experience.",
+          alwaysActive: false,
+        },
+        {
+          title: "Advertising & Social Media Cookies",
+          description: "Used for delivering personalized ads and sharing content on social media.",
+          alwaysActive: false,
+        }
+      ];
+
+      // ✅ Inject into modal
+      const consentContainer = document.getElementById("consentContainer");
+
+      cookieCategories.forEach((category) => {
+        const div = document.createElement("div");
+        div.className = "consent-category";
+
+        if (category.alwaysActive) {
+          div.innerHTML = `
+            <div>
+              <strong>${category.title}</strong><br/>
+              <small>${category.description}</small>
+            </div>
+            <span class="always-active">Always Active</span>
+          `;
+        } else {
+          div.innerHTML = `
+            <div>
+              <strong>${category.title}</strong><br/>
+              <small>${category.description}</small>
+            </div>
+            <div class="toggle" onclick="toggleSwitch(this)"></div>
+          `;
+        }
+
+        consentContainer.appendChild(div);
+      });
     </script>
   </body>
 </html>
