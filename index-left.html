@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookie Banner</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* === Cookie Banner === */
+      .cookie-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #f4f4f4;
+        padding: 20px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        z-index: 999;
+        gap: 70px;
+      }
+
+      .cookie-text {
+        max-width: 60%;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .cookie-text a {
+        color: #0077cc;
+        font-weight: bold;
+        text-decoration: underline;
+        margin-left: 5px;
+        font-size: 13px;
+      }
+
+      .cookie-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .cookie-buttons button {
+        background-color: #c100ff;
+        color: #fff;
+        border: none;
+        padding: 15px 15px;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      .cookie-settings {
+        font-weight: bold;
+        text-decoration: underline;
+        margin-right: 15px;
+        cursor: pointer;
+        font-size: 13px;
+        padding: 15px 15px;
+      }
+
+      /* === Modal Overlay === */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(5px);
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        margin-top: 0px;
+         justify-content:start;
+        align-items: center;
+           }
+
+      .modal {
+        background: #fff;
+        border-radius: 8px;
+        padding: 30px;
+        width: 500px;
+        height: 600px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        font-size: 13px;
+        overflow-y: auto;
+      }
+
+      .modal h2 {
+        margin-top: 0;
+        font-size: 18px;
+      }
+
+      .modal p {
+        font-size: 13px;
+        margin-bottom: 15px;
+      }
+
+      .modal .btn {
+        background-color: #c100ff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        margin: 10px 5px 20px 0;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .consent-section {
+        margin-top: 20px;
+        padding-top: 15px;
+      }
+
+      .consent-category {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+
+      .toggle {
+        width: 40px;
+        height: 20px;
+        background: #ccc;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .toggle::before {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: white;
+        top: 1px;
+        left: 1px;
+        transition: 0.3s;
+      }
+
+      .toggle.active {
+        background: green;
+      }
+
+      .toggle.active::before {
+        left: 21px;
+      }
+
+      .always-active {
+        font-size: 12px;
+        font-weight: bold;
+        color: #555;
+      }
+
+      @media (max-width: 768px) {
+        .cookie-banner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .cookie-text {
+          max-width: 100%;
+          margin-bottom: 10px;
+        }
+
+        .cookie-buttons {
+          width: 100%;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+      <div class="cookie-text">
+        Welcome to accenture.com! In order to provide a more relevant experience
+        for you, we use cookies to enable some website functionality. Cookies
+        help us see which articles most interest you; allow you to easily share
+        articles on social media; permit us to deliver content, jobs and ads
+        tailored to your interests and locations; and provide many other site
+        benefits. For more information, please review our
+        <a href="#">Cookies Policy</a> and <a href="#">Privacy Statement</a>.
+      </div>
+
+      <div class="cookie-buttons">
+        <span class="cookie-settings" onclick="openModal()"
+          >Cookies Settings</span
+        >
+        <button>Reject All</button>
+        <button>Accept All Cookies</button>
+      </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <h2>Privacy Preference Center</h2>
+  
+        <p>
+          You can customize your cookie preferences here. Click on the different
+          category headings to find out more and change our default settings.
+          Please read our through the use of cookies. The stored or retrieved
+          information might be about you, your preferences or your device and is
+          used for the purposes specified per cookies category below. The data
+          controller of your data processed through our cookies is Accenture
+          PLC. In addition, some cookies we use are from (and controlled by)
+          third-party companies, such as, Facebook, Microsoft, Marketo Munchkin
+          Tracking, Twitter, Knotch, Youtube, Instagram, Yoptima and Linkedin
+          Analytics to provide us with web analytics and intelligence about our
+          sites. You can accept the cookies as per your preferences by
+          activating the sliders per cookies category. By accepting cookies, the
+          functionalities described per cookies category will be activated and
+          by not accepting cookies, such<a href="#">Cookies Policy</a> for more
+          information.
+        </p>
+
+        <button class="btn" style="margin-bottom: 15px">Allow All</button>
+
+        <div class="consent-section">
+            <h2>Manage Consent Preferences</h2>
+          <div class="consent-category">
+            <span>Strictly Necessary Cookies</span>
+            <span class="always-active">Always Active</span>
+          </div>
+          <div class="consent-category">
+            <span>First Party Analytics Cookies</span>
+            <div class="toggle" onclick="toggleSwitch(this)"></div>
+          </div>
+          <div class="consent-category">
+            <span>Performance & Functional Cookies</span>
+            <div class="toggle" onclick="toggleSwitch(this)"></div>
+          </div>
+          <div class="consent-category">
+            <span>Advertising & Social Media Cookies</span>
+            <div class="toggle" onclick="toggleSwitch(this)"></div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; text-align: right">
+          <button class="btn">Reject All</button>
+          <button class="btn">Confirm My Choices</button>
+                         
+  <button class="btn" onclick="closeModal()">Close</button>
+
+ 
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function closeModal() {
+  document.getElementById("modalOverlay").style.display = "none";
+}
+
+      function openModal() {
+        document.getElementById("modalOverlay").style.display = "flex";
+      }
+
+      function toggleSwitch(element) {
+        element.classList.toggle("active");
+      }
+      window.addEventListener("click", function (event) {
+  const modal = document.getElementById("modalOverlay");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+    </script>
+  </body>
+</html>
