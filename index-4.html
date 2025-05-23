@@ -20,7 +20,7 @@
       flex-wrap: wrap;
       border-radius: 0; /* Rectangle shape */
       box-sizing: border-box;
-      max-width: 700px;
+      max-width: 530px;
       max-height: 300px;
       margin: 0 auto;
         border: 0.5px solid black; 
@@ -38,27 +38,25 @@
 
      .cookie-buttons {
   display: flex;
-  justify-content: space-between; 
+  justify-content: ; 
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: ;
   width: 100%;
   margin-top: 20px;
+  gap: 20px;
+  
+  
  
   
     
 }
 
-.left-buttons,
-.right-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
 
-}
+
 
 
     .btn-necessary {
-      background-color:black;
+      background-color:orangered;
       color:white;
           padding: 10px 10px;  /* vertical 16px, horizontal 24px for bigger buttons */
   font-size: 13px;
@@ -67,7 +65,7 @@
     }
 
     .btn-accept {
-      background-color: black;
+      background-color: orangered;
       color: white;
           padding: 10px 10px;  /* vertical 16px, horizontal 24px for bigger buttons */
   font-size: 13px;
@@ -78,7 +76,7 @@
     .btn-settings {
       background-color:white;
       color: black;
-        padding: 10px 10px;  /* vertical 16px, horizontal 24px for bigger buttons */
+        padding: 10px 32px;  /* vertical 16px, horizontal 24px for bigger buttons */
   font-size: 13px;
    border: 1px solid black;   /* border remove karne ke liye */
   outline: none; 
@@ -122,7 +120,7 @@
       }
 
       .modal .btn {
-        background-color:black;
+        background-color:orangered;
         color: white;
         padding: 10px 20px;
         border: none;
@@ -138,7 +136,7 @@
         padding-top: 15px;
       }
 
-      .consent-category {
+      /* .consent-category {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -146,7 +144,37 @@
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 5px;
-      }
+        flex-direction: column;
+      } */
+       .consent-category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  flex-direction: row; 
+
+  flex-wrap: wrap; 
+}
+
+.consent-category span {
+  font-weight: bold;
+  flex: 1 1 50%;
+}
+
+.consent-category .toggle {
+  flex-shrink: 0;
+}
+
+.consent-category p {
+  flex: 1 1 100%;
+  font-size: 13px;
+  color: #333;
+  margin-top: 8px;
+}
+
 
       .toggle {
         width: 40px;
@@ -170,7 +198,7 @@
       }
 
       .toggle.active {
-        background: rgb(122, 122, 209);
+        background:rgb(228, 118, 77);
       }
 
       .toggle.active::before {
@@ -180,7 +208,7 @@
       .always-active {
         font-size: 12px;
         font-weight: bold;
-        color: blue;
+        color: orangered;
       }
       .modal-header {
   display: flex;
@@ -216,17 +244,6 @@
         justify-content: flex-start;
       }
     }
-    .consent-description {
-  display: none;
-  font-size: 12px;
-  color: #444;
-  padding: 0 10px 10px 10px;
-  border-bottom: 1px solid #eee;
-}
-.consent-description.show {
-  display: block;
-}
-
   </style>
 </head>
 <body>
@@ -238,13 +255,13 @@
   </p>
   <div class="cookie-buttons">
  <div class="cookie-buttons">
-  <div class="left-buttons">
-    <button class="btn-settings" onclick="openModal()">Cookie Settings</button>
-  </div>
-  <div class="right-buttons">
+ 
+  
     <button class="btn-accept" >Accept All Cookies</button>
     <button class="btn-necessary" >Only Necessary Cookies</button>
-  </div>
+    <button class="btn-settings" onclick="openModal()">Cookie Settings</button>
+ 
+  
 </div>
 
 </div>
@@ -281,36 +298,60 @@
 
         <div class="consent-section">
             <h2>Manage Consent Preferences</h2>
-       <div class="consent-category" onclick="toggleAccordion(this)">
-  <span>Strictly Necessary Cookies</span>
-  <span class="always-active">Always Active</span>
+
+         <div class="consent-category">
+  <h3>Strictly Necessary Cookies</h3>
+  <div ><span class="always-active">Always Active</span></div>
+  <p>
+    Some cookies are required to provide core functionality. The website won't
+    function properly without these cookies and they are enabled by default and
+    cannot be disabled. <br><br>CookieHub is a Consent Management Platform (CMP) which allows users to control storage and processing of personal information.
+  </p>
 </div>
-<div class="consent-description">
- <span>These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off.</span> 
+         <div class="consent-category">
+  <h3>First Party Analytics Cookies</h3>
+  <div class="toggle active" onclick="toggleSwitch(this)"></div>
+  <p>
+    Some cookies are required to provide core functionality. The website won't
+    function properly without these cookies and they are enabled by default and
+    cannot be disabled.
+  </p>
+</div>
+         <div class="consent-category">
+  <h3>Performance & Functional Cookies</h3>
+  <div class="toggle active" onclick="toggleSwitch(this)"></div>
+  <p>
+    Some cookies are required to provide core functionality. The website won't
+    function properly without these cookies and they are enabled by default and
+    cannot be disabled.
+  </p>
+</div>
+        <div class="consent-category">
+  <h3>Advertising & Social Media Cookies</h3>
+  <div class="toggle active" onclick="toggleSwitch(this)"></div>
+  <p>
+    Some cookies are required to provide core functionality. The website won't
+    function properly without these cookies and they are enabled by default and
+    cannot be disabled.
+  </p>
 </div>
 
-<div class="consent-category" onclick="toggleAccordion(this)">
-  <span>First Party Analytics Cookies</span>
-  <div class="toggle" onclick="event.stopPropagation(); toggleSwitch(this)"></div>
-</div>
-<div class="consent-description">
-<span>These cookies are essential for the website to function and cannot be switched off.</span> </div>
-
-<div class="consent-category" onclick="toggleAccordion(this)">
-  <span>Performance & Functional Cookies</span>
-  <div class="toggle" onclick="event.stopPropagation(); toggleSwitch(this)"></div>
-</div>
-<div class="consent-description">
-<span>These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off.</span> </div>
-
-<div class="consent-category" onclick="toggleAccordion(this)">
-  <span>Advertising & Social Media Cookies</span>
-  <div class="toggle" onclick="event.stopPropagation(); toggleSwitch(this)"></div>
-</div>
-<div class="consent-description">
-<span>  These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off.These cookies are essential for the website to function and cannot be switched off.</span> </div>
-
-        </div>
+          <!-- <div class="consent-category">
+            <span>First Party Analytics Cookies</span>
+            <p>Some cookies are required to provide core functionality. The website won't function properly without these cookies and they are enabled by default and cannot be disabled.</p>
+            <div class="toggle" onclick="toggleSwitch(this)"></div>
+          </div>
+          <div class="consent-category">
+            <span>Performance & Functional Cookies</span>
+            <p>Some cookies are required to provide core functionality. The website won't function properly without these cookies and they are enabled by default and cannot be disabled.</p>
+            <div class="toggle" onclick="toggleSwitch(this)"></div>
+          </div>
+          <div class="consent-category">
+            <p>Some cookies are required to provide core functionality. The website won't function properly without these cookies and they are enabled by default and cannot be disabled.</p>
+            <span>Advertising & Social Media Cookies</span>
+            <div class="toggle" onclick="toggleSwitch(this)"></div>
+          </div>
+        </div> -->
 
         <div style="margin-top: 20px; text-align: right">
           <button class="btn">Reject All</button>
@@ -340,13 +381,6 @@
     modal.style.display = "none";
   }
 });
-function toggleAccordion(categoryElement) {
-  const next = categoryElement.nextElementSibling;
-  if (next && next.classList.contains('consent-description')) {
-    next.classList.toggle('show');
-  }
-}
-
 </script>
 
 </body>
