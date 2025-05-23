@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top Cookie Banner</title>
+  <style>
+    .cookie-banner {
+      position: fixed;
+      top: 50px; /* margin from top */
+      left: 0;
+      right: 0;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10000;
+      flex-wrap: wrap;
+      border-radius: 0; /* Rectangle shape */
+      box-sizing: border-box;
+      max-width: 700px;
+      max-height: 300px;
+      margin: 0 auto;
+        border: 0.5px solid black; 
+
+   
+    }
+
+    .cookie-banner p {
+      margin: 0;
+      font-size: 14px;
+      color: #333;
+      flex: 1 1 100%;
+      
+    }
+
+     .cookie-buttons {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 20px;
+ 
+  
+    
+}
+
+.left-buttons,
+.right-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+}
+
+
+    .btn-necessary {
+      background-color:black;
+      color:white;
+          padding: 10px 10px;  /* vertical 16px, horizontal 24px for bigger buttons */
+  font-size: 13px;
+   border: none;   /* border remove karne ke liye */
+  outline: none; 
+    }
+
+    .btn-accept {
+      background-color: black;
+      color: white;
+          padding: 10px 10px;  /* vertical 16px, horizontal 24px for bigger buttons */
+  font-size: 13px;
+   border: none;   /* border remove karne ke liye */
+  outline: none; 
+    }
+
+    .btn-settings {
+      background-color:white;
+      color: black;
+        padding: 10px 10px;  /* vertical 16px, horizontal 24px for bigger buttons */
+  font-size: 13px;
+   border: 1px solid black;   /* border remove karne ke liye */
+  outline: none; 
+    }
+
+
+          .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(5px);
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        margin-top: 0px;
+         justify-content:center;
+        align-items: center;
+           }
+
+      .modal {
+        background: #fff;
+        border-radius: 8px;
+        padding: 30px;
+        width: 500px;
+        height: 500px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        font-size: 13px;
+        overflow-y: auto;
+      }
+
+      .modal h2 {
+        margin-top: 0;
+        font-size: 18px;
+      }
+
+      .modal p {
+        font-size: 13px;
+        margin-bottom: 15px;
+      }
+
+      .modal .btn {
+        background-color:black;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        margin: 10px 5px 20px 0;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .consent-section {
+        margin-top: 20px;
+        padding-top: 15px;
+      }
+
+      .consent-category {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+
+      .toggle {
+        width: 40px;
+        height: 20px;
+        background: #ccc;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .toggle::before {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: white;
+        top: 1px;
+        left: 1px;
+        transition: 0.3s;
+      }
+
+      .toggle.active {
+        background: rgb(122, 122, 209);
+      }
+
+      .toggle.active::before {
+        left: 21px;
+      }
+
+      .always-active {
+        font-size: 12px;
+        font-weight: bold;
+        color: blue;
+      }
+      .modal-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-logo {
+  width: 30px;
+  height: 30px;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+
+    @media (max-width: 600px) {
+      .cookie-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cookie-buttons {
+        justify-content: flex-start;
+      }
+    }
+    .consent-description {
+  display: none;
+  font-size: 12px;
+  color: #444;
+  padding: 0 10px 10px 10px;
+  border-bottom: 1px solid #eee;
+}
+.consent-description.show {
+  display: block;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="cookie-banner" id="cookieBanner">
+    <h4>  At Herman Miller, we respect your privacy.</h4>
+  <p>
+   We use cookies to personalise content and ads, provide social media features, and analyse our traffic. We also share information about your use of our site with our social media, advertising, and analytics partners.
+  </p>
+  <div class="cookie-buttons">
+ <div class="cookie-buttons">
+  <div class="left-buttons">
+    <button class="btn-settings" onclick="openModal()">Cookie Settings</button>
+  </div>
+  <div class="right-buttons">
+    <button class="btn-accept" >Accept All Cookies</button>
+    <button class="btn-necessary" >Only Necessary Cookies</button>
+  </div>
+</div>
+
+</div>
+
+
+ <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <div class="modal-header">
+  <div class="modal-brand">
+<img src="we.png" alt="Concur Logo" class="modal-logo">
+    <span class="modal-title">Concur</span>
+  </div>
+</div>
+
+        <p>
+          You can customize your cookie preferences here. Click on the different
+          category headings to find out more and change our default settings.
+          Please read our through the use of cookies. The stored or retrieved
+          information might be about you, your preferences or your device and is
+          used for the purposes specified per cookies category below. The data
+          controller of your data processed through our cookies is Accenture
+          PLC. In addition, some cookies we use are from (and controlled by)
+          third-party companies, such as, Facebook, Microsoft, Marketo Munchkin
+          Tracking, Twitter, Knotch, Youtube, Instagram, Yoptima and Linkedin
+          Analytics to provide us with web analytics and intelligence about our
+          sites. You can accept the cookies as per your preferences by
+          activating the sliders per cookies category. By accepting cookies, the
+          functionalities described per cookies category will be activated and
+          by not accepting cookies, such<a href="#">Cookies Policy</a> for more
+          information.
+        </p>
+
+        <button class="btn" style="margin-bottom: 15px">Allow All</button>
+
+        <div class="consent-section">
+            <h2>Manage Consent Preferences</h2>
+       <div class="consent-category" onclick="toggleAccordion(this)">
+  <span>Strictly Necessary Cookies</span>
+  <span class="always-active">Always Active</span>
+</div>
+<div class="consent-description">
+ <span>These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off.</span> 
+</div>
+
+<div class="consent-category" onclick="toggleAccordion(this)">
+  <span>First Party Analytics Cookies</span>
+  <div class="toggle" onclick="event.stopPropagation(); toggleSwitch(this)"></div>
+</div>
+<div class="consent-description">
+<span>These cookies are essential for the website to function and cannot be switched off.</span> </div>
+
+<div class="consent-category" onclick="toggleAccordion(this)">
+  <span>Performance & Functional Cookies</span>
+  <div class="toggle" onclick="event.stopPropagation(); toggleSwitch(this)"></div>
+</div>
+<div class="consent-description">
+<span>These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off.</span> </div>
+
+<div class="consent-category" onclick="toggleAccordion(this)">
+  <span>Advertising & Social Media Cookies</span>
+  <div class="toggle" onclick="event.stopPropagation(); toggleSwitch(this)"></div>
+</div>
+<div class="consent-description">
+<span>  These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off. These cookies are essential for the website to function and cannot be switched off.These cookies are essential for the website to function and cannot be switched off.</span> </div>
+
+        </div>
+
+        <div style="margin-top: 20px; text-align: right">
+          <button class="btn">Reject All</button>
+          <button class="btn">Confirm My Choices</button>
+                         
+  <button class="btn" onclick="closeModal()">Close</button>
+
+ 
+
+        </div>
+      </div>
+    </div>
+
+<script>
+      function closeModal() {
+  document.getElementById("modalOverlay").style.display = "none";
+}
+  function openModal() {
+        document.getElementById("modalOverlay").style.display = "flex";
+      }
+     function toggleSwitch(element) {
+        element.classList.toggle("active");
+      }
+      window.addEventListener("click", function (event) {
+  const modal = document.getElementById("modalOverlay");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+function toggleAccordion(categoryElement) {
+  const next = categoryElement.nextElementSibling;
+  if (next && next.classList.contains('consent-description')) {
+    next.classList.toggle('show');
+  }
+}
+
+</script>
+
+</body>
+</html>
+
+
+
